@@ -3,7 +3,7 @@ FROM openjdk:8
 LABEL softartdev <artik222012@gmail.com>
 
 ENV ANDROID_HOME=/opt/android-sdk
-ENV PATH $PATH=$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
+ENV PATH $PATH=$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools:$PATH
 
 WORKDIR /opt
 
@@ -17,9 +17,9 @@ yes | sdkmanager "extras;android;m2repository" && \
 yes | sdkmanager "extras;google;m2repository" && \
 yes | sdkmanager --licenses && \
 # Install Fastlane
-apt-get update && apt-get install --no-install-recommends -y build-essential git ruby2.3-dev \
-&& gem install fastlane \
-&& gem install bundler \
+apt-get update && apt-get install --no-install-recommends -y --allow-unauthenticated build-essential git ruby2.3-dev && \
+gem install fastlane && \
+gem install bundler && \
 # Clean up
-&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-&& apt-get autoremove -y && apt-get clean
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+apt-get autoremove -y && apt-get clean
