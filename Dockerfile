@@ -1,4 +1,4 @@
-FROM gradle:5.6.4-jdk8
+FROM openjdk:8
 
 LABEL softartdev <artik222012@gmail.com>
 
@@ -14,12 +14,13 @@ RUN mkdir "$ANDROID_HOME" .android && \
     unzip sdk.zip && \
     rm sdk.zip && \
 # Download Android SDK
-yes | sdkmanager "platform-tools" && \
-yes | sdkmanager "platforms;android-29" && \
-yes | sdkmanager "build-tools;29.0.3" && \
-yes | sdkmanager "extras;android;m2repository" && \
-yes | sdkmanager "extras;google;m2repository" && \
 yes | sdkmanager --licenses && \
+sdkmanager --update && \
+sdkmanager "build-tools;29.0.3" && \
+sdkmanager "platforms;android-29" && \
+sdkmanager "platform-tools" && \
+sdkmanager "extras;android;m2repository" && \
+sdkmanager "extras;google;m2repository" && \
 # Install Fastlane
 apt-get update && \
 apt-get install --no-install-recommends -y --allow-unauthenticated build-essential git ruby-full && \
@@ -27,4 +28,5 @@ gem install fastlane && \
 gem install bundler && \
 # Clean up
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-apt-get autoremove -y && apt-get clean
+apt-get autoremove -y && \
+apt-get clean
