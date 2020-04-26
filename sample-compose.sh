@@ -1,1 +1,1 @@
-docker-compose run sample-compose '/home/NoteRoom/gradlew build'
+docker-compose run sample-compose /home/NoteRoom/gradlew build
