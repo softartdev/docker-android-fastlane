@@ -1,0 +1,7 @@
+version: '2.0'
+services:
+  sample-compose:
+#    image: softartdev/android-fastlane:latest
+    build: .
+    volumes:
+     - $HOME/AndroidStudioProjects/NoteRoom/:/home/NoteRoom
