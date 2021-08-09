@@ -1,5 +1,8 @@
 # docker-android-fastlane
-You can use this image on such CI/CD like Bitbucket and GitLab, which uses docker containers.
+[![Docker Pulls](https://img.shields.io/docker/pulls/softartdev/android-fastlane)](https://hub.docker.com/repository/docker/softartdev/android-fastlane)
+[![Build and publish to DockerHub](https://github.com/softartdev/docker-android-fastlane/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/softartdev/docker-android-fastlane/actions/workflows/docker-publish.yml)
+
+You can use this image on such CI/CD like Bitbucket/GitLab/etc, which uses docker containers.
 
 Example for bitbucket-pipelines.yml file:
 ```
@@ -27,10 +30,10 @@ default_platform(:android)
 platform :android do
   lane :playstore do
     gradle(
-      task: 'clean bundle',
+      task: 'bundle', # for AAB, or use 'assemble' for APK
       build_type: 'Release'
     )
-    upload_to_play_store # Uploads the APK built in the gradle step above
+    upload_to_play_store # Uploads the APK/AAB built in the gradle step above
   end
 end
 ```
