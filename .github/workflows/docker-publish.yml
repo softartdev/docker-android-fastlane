@@ -25,9 +25,6 @@ jobs:
           images: softartdev/android-fastlane
           tags: type=ref,event=tag
 
-      - name: Check current tag
-        run: echo ${{ steps.meta.outputs.tags }}
-
       - name: Build and push Docker image
         id: docker_build
         uses: docker/build-push-action@v2
