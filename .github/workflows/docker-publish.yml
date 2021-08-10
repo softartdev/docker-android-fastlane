@@ -22,6 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
+          images: softartdev/android-fastlane
           tags: type=ref,event=tag
 
       - name: Check current tag
