@@ -2,7 +2,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/softartdev/android-fastlane)](https://hub.docker.com/repository/docker/softartdev/android-fastlane)
 [![Build and publish to DockerHub](https://github.com/softartdev/docker-android-fastlane/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/softartdev/docker-android-fastlane/actions/workflows/docker-publish.yml)
 
-You can use this image on such CI/CD like Bitbucket/GitLab/etc, which uses docker containers.
+You can use this image on such CI/CD like Bitbucket/GitLab/GitHub Actions/etc, which uses docker containers.
 
 Example for bitbucket-pipelines.yml file:
 ```
@@ -14,10 +14,6 @@ pipelines:
         name: Build step
         script:
           - ./gradlew build
-    - step:
-        name: Test step
-        script:
-         - ./gradlew test
     - step:
         name: Publish step
         script:
