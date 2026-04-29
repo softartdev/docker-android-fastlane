@@ -39,58 +39,53 @@ Desirable debug it locally before push to remote repository.
 
 Pull the published image:
 ```sh
-docker pull softartdev/android-fastlane:36.1
+docker pull softartdev/android-fastlane:37
 ```
-
 Create and enter a named container with the current project mounted:
 ```sh
 docker run --name android-fastlane -it \
   -v "$PWD":/workspace \
   -w /workspace \
-  softartdev/android-fastlane:36.1 \
+  softartdev/android-fastlane:37 \
   bash
 ```
-
 Start the same container again:
 ```sh
 docker start -ai android-fastlane
 ```
-
 Open another terminal inside the running container:
 ```sh
 docker exec -it android-fastlane bash
 ```
-
 Remove the named container:
 ```sh
 docker stop android-fastlane
 docker rm android-fastlane
 ```
-
 Run a project from the current directory inside a disposable container:
 ```sh
 docker run --rm -it \
   -v "$PWD":/workspace \
   -w /workspace \
-  softartdev/android-fastlane:36.1 \
+  softartdev/android-fastlane:37 \
   bash
 ```
-
-Build or publish the mounted project:
+Build the mounted project:
 ```sh
 docker run --rm -it \
   -v "$PWD":/workspace \
   -w /workspace \
-  softartdev/android-fastlane:36.1 \
+  softartdev/android-fastlane:37 \
   ./gradlew build
-
+```
+Publish the mounted project:
+```sh
 docker run --rm -it \
   -v "$PWD":/workspace \
   -w /workspace \
-  softartdev/android-fastlane:36.1 \
+  softartdev/android-fastlane:37 \
   fastlane playstore
 ```
-
 [Setup Fastlane](https://docs.fastlane.tools/getting-started/android/setup/)
 
 [Debug your pipelines locally with Docker](https://confluence.atlassian.com/bitbucket/debug-your-pipelines-locally-with-docker-838273569.html)
