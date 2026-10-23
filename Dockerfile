@@ -1,25 +1,28 @@
-FROM openjdk:17.0.2-jdk-slim-bullseye
+FROM eclipse-temurin:17-jdk-noble
 
 ARG TARGETARCH
 
 LABEL maintainer="softartdev <artik222012@gmail.com>"
 
-ENV JAVA_HOME=/usr/local/openjdk-17
 ENV ANDROID_SDK_URL=https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip \
-    ANDROID_API_LEVEL=android-37.0 \
+    ANDROID_API_LEVEL=android-37.1 \
     ANDROID_BUILD_TOOLS_VERSION=37.0.0 \
     ANDROID_HOME=/usr/local/android-sdk-linux \
     ANDROID_SDK_ROOT=/usr/local/android-sdk-linux \
-    ANDROID_VERSION=37.0
+    ANDROID_VERSION=37.1
 ENV PATH=${JAVA_HOME}/bin:${PATH}:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS_VERSION}
 
-RUN if [ "$TARGETARCH" = "arm64" ]; then dpkg --add-architecture amd64; fi && \
+RUN if [ "$TARGETARCH" = "arm64" ]; then dpkg --add-architecture amd64 && \
+      sed -i '/^Types: deb$/a Architectures: arm64' /etc/apt/sources.list.d/ubuntu.sources && \
+      printf 'deb [arch=amd64 signed-by=/usr/share/keyrings/ubuntu-archive-keyring.gpg] http://%s/ubuntu %s main\n' \
+        archive.ubuntu.com noble archive.ubuntu.com noble-updates security.ubuntu.com noble-security \
+        > /etc/apt/sources.list.d/amd64.list; fi && \
     apt-get update && \
     apt-get install --no-install-recommends -y build-essential curl git ruby-dev ruby-full unzip && \
     if [ "$TARGETARCH" = "arm64" ]; then apt-get install --no-install-recommends -y libc6:amd64 libgcc-s1:amd64; fi && \
     mkdir -p "$ANDROID_HOME/cmdline-tools" /root/.android && \
     printf '%s\n' \
-    'export JAVA_HOME="${JAVA_HOME:-/usr/local/openjdk-17}"' \
+    'export JAVA_HOME="${JAVA_HOME:-/opt/java/openjdk}"' \
     'export ANDROID_HOME="${ANDROID_HOME:-/usr/local/android-sdk-linux}"' \
     'export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"' \
     'export ANDROID_BUILD_TOOLS_VERSION="${ANDROID_BUILD_TOOLS_VERSION:-37.0.0}"' \

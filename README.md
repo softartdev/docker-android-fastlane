@@ -6,7 +6,7 @@ You can use this image on such CI/CD like Bitbucket/GitLab/GitHub Actions/etc, w
 
 Example for bitbucket-pipelines.yml file:
 ```
-image: softartdev/android-fastlane
+image: softartdev/android-fastlane:37.1
 
 pipelines:
   default:
@@ -39,14 +39,14 @@ Desirable debug it locally before push to remote repository.
 
 Pull the published image:
 ```sh
-docker pull softartdev/android-fastlane:37
+docker pull softartdev/android-fastlane:37.1
 ```
 Create and enter a named container with the current project mounted:
 ```sh
 docker run --name android-fastlane -it \
   -v "$PWD":/workspace \
   -w /workspace \
-  softartdev/android-fastlane:37 \
+  softartdev/android-fastlane:37.1 \
   bash
 ```
 Start the same container again:
@@ -67,7 +67,7 @@ Run a project from the current directory inside a disposable container:
 docker run --rm -it \
   -v "$PWD":/workspace \
   -w /workspace \
-  softartdev/android-fastlane:37 \
+  softartdev/android-fastlane:37.1 \
   bash
 ```
 Build the mounted project:
@@ -75,7 +75,7 @@ Build the mounted project:
 docker run --rm -it \
   -v "$PWD":/workspace \
   -w /workspace \
-  softartdev/android-fastlane:37 \
+  softartdev/android-fastlane:37.1 \
   ./gradlew build
 ```
 Publish the mounted project:
@@ -83,7 +83,7 @@ Publish the mounted project:
 docker run --rm -it \
   -v "$PWD":/workspace \
   -w /workspace \
-  softartdev/android-fastlane:37 \
+  softartdev/android-fastlane:37.1 \
   fastlane playstore
 ```
 [Setup Fastlane](https://docs.fastlane.tools/getting-started/android/setup/)
